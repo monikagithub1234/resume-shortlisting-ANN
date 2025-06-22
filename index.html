@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Shortlisting using ANN</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      margin: auto;
+      border-radius: 10px;
+      width: 50%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: green;
+    }
+    input[type=file] {
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 Resume Shortlisting (ANN)</h1>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <input type="file" name="resume_file" accept=".pdf" required><br>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+      <div class="result">
+        <strong>✅ Top Predictions:</strong><br><br>
+        {% for label, score in prediction %}
+          <div>{{ loop.index }}. {{ label }} — {{ score }}%</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
